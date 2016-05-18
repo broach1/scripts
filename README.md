@@ -15,3 +15,7 @@ Submits many jobs to Grid by looping over desired files and automatically naming
 grid_test.sh
 -----------
 Actually runs the job on the Grid. It sources the stack, builds the code, and runs the single particle gun to generate events.
+
+change_ecal.sh
+-----------
+Generates new FCChh_ECalDefinition.xml files in a separate directory with differing values of LAr and lead thickness
