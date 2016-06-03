@@ -3,11 +3,11 @@
 i=1             
 #iteration number - begins with 1
 
-NJOBS=25    
+NJOBS=5  
 #total number of jobs to submit
 
-LAR=3.5          
-LEAD=2.5         
+LAR=4.5          
+LEAD=1.5         
 SM=6             
 #mm
 #SM=LAR+LEAD
@@ -18,10 +18,10 @@ NTOT=500
 BFIELD=0         
 #0 off, 1 on
 
-ENE=1000e3        
+ENE=100e3    
 #MeV
 
-EVTMAX=20        
+EVTMAX=100      
 #number of events in each job
 
 PHIMIN=0    
@@ -33,7 +33,7 @@ VY=0
 VZ=0
 #set vertex coordinate of generated particle (mm)             
 
-#cp ../new_ecal_dim/${SM}mm/out_LAR${LAR}_LEAD${LEAD}.xml DetectorDescription/Detectors/compact/FCChh_ECalDefinition.xml
+cp ../new_ecal_dim/${SM}mm/out_LAR${LAR}_LEAD${LEAD}.xml DetectorDescription/Detectors/compact/FCChh_ECalDefinition.xml
 
 
 while [ $i -le $NJOBS ]
@@ -50,9 +50,11 @@ sed -i "14s/.*/VY=$VY/g" geant_fullsim_ecal_SPG_batch.py
 sed -i "15s/.*/VZ=$VZ/g" geant_fullsim_ecal_SPG_batch.py 
 sed -i "16s/.*/i=$i/g" geant_fullsim_ecal_SPG_batch.py
 
-prun --exec ". ./grid_test.sh" --cmtConfig=x86_64-slc6-gcc49-opt --site=CERN-PROD --outDS user.broach.e${ENE}_NO_CRYO_FIXED_LAR${LAR}_LEAD${LEAD}_NTOT${NTOT}_BFIELD${BFIELD}_VX${VX}_VY${VY}_VZ${VZ}_PART${i}_OF_${NJOBS} --outputs output.root
+NOW=$(date +"%m-%d-%y")
+
+prun --exec ". ./grid_test.sh" --cmtConfig=x86_64-slc6-gcc49-opt --site=CERN-PROD --outDS user.broach.e${ENE}_NO_CRYO_FIXED_LAR${LAR}_LEAD${LEAD}_NTOT${NTOT}_BFIELD${BFIELD}_VX${VX}_VY${VY}_VZ${VZ}_PART${i}_OF_${NJOBS}_DATE_${NOW} --outputs output.root
 #./run gaudirun.py geant_fullsim_ecal_SPG_batch.py
-echo user.broach.e${ENE}_NO_CRYO_FIXED_LAR${LAR}_LEAD${LEAD}_NTOT${NTOT}_BFIELD${BFIELD}_PART${i}_OF_${NJOBS}
+echo user.broach.e${ENE}_NO_CRYO_FIXED_LAR${LAR}_LEAD${LEAD}_NTOT${NTOT}_BFIELD${BFIELD}_PART${i}_OF_${NJOBS}_DATE_${NOW}
 i=$[$i+1]
 
 done
