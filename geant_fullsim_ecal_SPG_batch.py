@@ -5,15 +5,17 @@ import numpy as np
 seed_array = np.loadtxt('seeds.txt',dtype='int',delimiter=',')
 
 #the space below (lines 8-22) are for job options (ENE, EVTMAX, etc)
-ENE=50e3
-EVTMAX=100
+ENE=20e3
+EVTMAX=1
 BFIELD=0
 PHIMIN=0
 PHIMAX=6.28
 VX=0
 VY=0
 VZ=0
-i=1
+i=4
+CLUSTER=1
+
 
 
 
@@ -76,6 +78,10 @@ geantsim = G4SimAlg("G4SimAlg",
 from Configurables import PodioOutput
 out = PodioOutput("out",
                    OutputLevel=INFO)
+
+if CLUSTER==1: #otherwise use the generic name output.root for Grid runs
+    out.filename = "e"+str(int(ENE/1e3))+"_part"+str(i)+".root"
+
 out.outputCommands = ["keep *"]
 
 # ApplicationMgr
