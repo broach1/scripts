@@ -6,7 +6,7 @@
   <calorimeter id="1" name="EM_barrel" > 
     <dimensions rmin="EMBarrel_rmin" rmax="EMBarrel_rmax" dz="EMBarrel_dz" />
     <!--fixed dimensions to agree with the ones in FCCSW -->
-    <active_layers thickness="4.5*mm" material="LAr" />
-    <passive_layers thickness="1.5*mm" material="Lead" />
+    <active_layers thickness="4.24*mm" material="LAr" />
+    <passive_layers thickness="2.44*mm" material="Lead" />
   </calorimeter>
 </detector>
