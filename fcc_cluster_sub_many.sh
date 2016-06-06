@@ -3,11 +3,11 @@
 i=1             
 #iteration number - begins with 1
 
-NJOBS=4  
+NJOBS=4 
 #total number of jobs to submit
 
-LAR=4.5          
-LEAD=1.5         
+LAR=4         
+LEAD=2         
 SM=6             
 #mm
 #SM=LAR+LEAD
@@ -21,7 +21,7 @@ BFIELD=0
 ENE=20e3    
 #MeV
 
-EVTMAX=1      
+EVTMAX=50      
 #number of events in each job
 
 PHIMIN=0    
@@ -39,6 +39,7 @@ CLUSTER=1
 cp ../new_ecal_dim/${SM}mm/out_LAR${LAR}_LEAD${LEAD}.xml DetectorDescription/Detectors/compact/FCChh_ECalDefinition.xml
 
 source init_fcc_stack.sh
+make -j 12
 
 
 while [ $i -le $NJOBS ]
