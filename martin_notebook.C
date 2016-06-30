@@ -157,7 +157,7 @@ double ApplSamplTerm(double Ec, double tabs, double Elossact, double f, double k
 //actually do the plotting
 int martin_notebook(){
 
-  std::vector<double> dim {0.0015, 0.00212*2};
+  //std::vector<double> dim {0.0015, 0.00212*2}; 
   std::vector<double> X0 {X0_Pb, X0_LAr};
   std::vector<double> Ec {Ec_Pb, Ec_LAr};
   double larx = 0.006;
@@ -197,6 +197,7 @@ int martin_notebook(){
 
   TGraph *g1 = new TGraph(vec_pbx.size(),ar_pbx,ar_samp_term_6mm);
   g1->Draw();
+  g1->GetYaxis()->SetRangeUser(0,16);
   g1->SetLineColor(kRed);
   g1->SetMarkerColor(kRed);
   g1->GetXaxis()->SetTitle("Pb (mm)");
@@ -204,6 +205,7 @@ int martin_notebook(){
   g1->SetTitle("");
   leg1->AddEntry(g1,"6mm LAr gap","l");
 
+  /*
   TGraph *g2 = new TGraph(vec_pbx.size(),ar_pbx,ar_samp_term_12mm);
   g2->Draw("SAME");
   g2->SetLineColor(kBlue);
@@ -215,9 +217,28 @@ int martin_notebook(){
   g3->SetLineColor(28);
   g3->SetMarkerColor(28);
   leg1->AddEntry(g3,"3mm LAr gap","l");
+  c1->Update();
+  */
+
+
+  std::vector<double> pb {2.0, 4.0, 6.0};
+  std::vector<double> pb_err {0.0, 0.0, 0.0};
+  std::vector<double> stoch {6.537, 8.886, 14.21 };
+  std::vector<double> stoch_err {0.13, 0.32, 0.693};
+  
+  double *ar_pb = &pb[0];
+  double *ar_pb_err = &pb_err[0];
+  double *ar_stoch = &stoch[0];
+  double *ar_stoch_err = &stoch_err[0];
+
+  TGraph *g4 = new TGraphErrors(pb.size(),ar_pb,ar_stoch,ar_pb_err, ar_stoch_err);
+  g4->Draw("P SAME");
+  g4->SetMarkerStyle(4);
+  g4->SetMarkerSize(0.8);
+  g4->SetMarkerColor(kBlack);
+  leg1->AddEntry(g4,"Simulation","P");
   leg1->Draw();
   c1->Update();
-
 
 
   
