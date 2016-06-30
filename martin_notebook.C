@@ -157,7 +157,7 @@ double ApplSamplTerm(double Ec, double tabs, double Elossact, double f, double k
 //actually do the plotting
 int martin_notebook(){
 
-  std::vector<double> dim {0.0015, 0.00212*2};
+  //std::vector<double> dim {0.0015, 0.00212*2};
   std::vector<double> X0 {X0_Pb, X0_LAr};
   std::vector<double> Ec {Ec_Pb, Ec_LAr};
   double larx = 0.006;
