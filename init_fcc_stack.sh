@@ -1,4 +1,5 @@
 #!/bin/sh -u
+#
 # This script sets up the commonly used software for FCC software projects:
 # - Linux machines at CERN:
 #    The software is taken from cvmfs or afs depending on command (source init_fcc_stack.sh cvmfs/afs).
