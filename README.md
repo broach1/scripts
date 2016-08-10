@@ -5,16 +5,16 @@ Contains useful scripts for running code on Grid. Files not included in this REA
 
 grid_sub.sh
 ----------
-Uses prun to submit a single job to Grid.
+Uses prun to submit a single job to Grid. (No longer useful, now that jobs are fast enough to run on LSF batch.)
 
 
 grid_sub_many.sh
 -----------
-Submits many jobs to Grid by looping over desired files and automatically naming the outDS. (Currently used to test modifications in the ratio of lead to LAr in the ECAL.)
+Submits many jobs to Grid by looping over desired files and automatically naming the outDS. (No longer useful.)
 
 grid_test.sh
 -----------
-Actually runs the job on the Grid. It sources the stack, builds the code, and runs the single particle gun to generate events.
+Actually runs the job on the Grid. It sources the stack, builds the code, and runs the single particle gun to generate events. (No longer useful.)
 
 change_ecal.sh
 -----------
@@ -30,7 +30,7 @@ Configuration file for use in the ./run gaudirun.py fullsim.py command. Currentl
 
 seeds.txt
 -----------
-Contains a list of 500 random seeds, designed to be imported by numpy in the .py configuration file for use in the single particle gun.
+Contains a list of 500 random seeds, designed to be imported by numpy in the .py configuration file for use in the single particle gun (generating pseudorandom phi angles).
 
 submit_jobs.sh
 -----------
@@ -42,4 +42,4 @@ Called by submit_jobs.sh; copies the FCCSW directory to LSF batch (including the
 
 sig_e_over_e.py
 -----------
-Takes processed root files from ECAL standalone and extracts the resolution and fits it as a function of energy (i.e. sigma/E = a/sqrt(E) \quadr C).
+Takes processed root files from ECAL standalone and extracts the resolution and fits it as a function of energy (i.e. sigma/E = a/sqrt(E) + C, in quadrature).
