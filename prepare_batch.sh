@@ -9,7 +9,8 @@ export NEVT=$2
 export ENEGEV=$3
 export ENEMEV=$[$ENEGEV * 1000]
 
-#Conversion from GeV to MeV (energy must be in MeV for DD4hep)                                                                                            
+#Conversion from GeV to MeV (energy must be in MeV for DD4hep)                 
+
 #export ENEMEV=$(($ENEGEV * 1000))
 export BFIELD=$4
 export PHIMIN=$5
@@ -31,7 +32,7 @@ cd MyWorkDir
 mkdir FCCSW
 cd FCCSW
 
-cp -r /afs/cern.ch/user/b/broach/FCCSW_updated/FCCSW/* .
+cp -r /afs/cern.ch/user/b/broach/recover/FCCSW/* .
 
 
 # List content of the working directory for debugging purposes
@@ -59,24 +60,30 @@ sed -i "19s/.*/LEAD=$LEAD/g" ${JOB}
 #echo "Joboption file content:"
 #cat ${JOB}
 
-less ${JOB}
+#less ${JOB}
 
 # Setup & compile
 #echo "Setting the enviroment"
-#source init.sh
+less init.sh
+source ./init.sh
 #echo "Compiling "
 #make clean
 #make -j 8
 
-source /afs/cern.ch/user/b/broach/fcc_eos.sh
+#source /afs/cern.ch/user/b/broach/fcc_eos.sh
+
+#test xrdcp
+echo "finding t2"
+xrdcp root://eospublic//eos/fcc/users/b/broach/t2 .
+
 
 # Run the job
 ./run gaudirun.py ${JOB} | tee myjob.log
 
 # Copy out the results if exist
 if [ -e output.root ] ; then
-xrdcp output.root root://eospublic//eos/fcc/users/b/broach/July11/e${ENEGEV}_n${NEVT}_lar${LAR}_lead${LEAD}_part${i}.root
-xrdcp myjob.log root://eospublic//eos/fcc/users/b/broach/July11/myjob_ecal_bfield${BFIELD}_e${ENEGEV}GeV_n${NEVT}_lar${LAR}_lead${LEAD}_part${i}.log
+xrdcp -f output.root root://eospublic//eos/fcc/users/b/broach/July11/e${ENEGEV}_n${NEVT}_lar${LAR}_lead${LEAD}_part${i}.root
+xrdcp -f myjob.log root://eospublic//eos/fcc/users/b/broach/July11/myjob_ecal_bfield${BFIELD}_e${ENEGEV}GeV_n${NEVT}_lar${LAR}_lead${LEAD}_part${i}.log
 fi
  
 # Clean workspace before exit
